@@ -1,0 +1,36 @@
+apiVersion: kubeflow.org/v2beta1  # 避坑：离线包的 Operator 对应的版本，将 v1 改为 v2beta1 避免报错
+kind: MPIJob
+metadata:
+  name: mpi-pi
+  namespace: default
+spec:
+  slotsPerWorker: 2               # 任务要求：slotsPerWorker=2
+  runPolicy:
+    cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+        spec:
+          containers:
+          - name: launcher
+            # ↓ 替换为你自己的华为云 SWR 公开镜像地址
+            image: swr.cn-south-1.myhuaweicloud.com/morning/mpi4py:latest
+            command:
+            - mpirun
+            - -n
+            - "4"                 # 总进程数 = slotsPerWorker(2) × workerReplicas(2)
+            - python
+            - /opt/mpi/pi_mpi.py
+    Worker:
+      replicas: 2                 # 任务要求：workerReplicas=2
+      template:
+        spec:
+          containers:
+          - name: worker
+            # ↓ 替换为你自己的华为云 SWR 公开镜像地址
+            image: swr.cn-south-1.myhuaweicloud.com/morning/mpi4py:latest
+            resources:
+              requests:
+                cpu: "1"
+                memory: "1Gi"

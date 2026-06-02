@@ -1,0 +1,42 @@
+apiVersion: kubeflow.org/v1
+kind: MPIJob
+metadata:
+  name: mpi-pi-job
+  namespace: default
+spec:
+  slotsPerWorker: 2
+  restartPolicy: ExitCode
+  mpiImplementation: OpenMPI
+  runPolicy:
+    cleanPodPolicy: None
+  selector:
+    matchLabels:
+      mpi-job-name: mpi-pi-job
+  worker:
+    replicas: 2
+    template:
+      spec:
+        containers:
+        - name: mpi-worker
+          image: swr.cn-north-4.myhuaweicloud.com/<ORG>/mpi:v1.0
+          resources:
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+            requests:
+              cpu: "1"
+              memory: "1Gi"
+  launcher:
+    replicas: 1
+    template:
+      spec:
+        containers:
+        - name: mpi-launcher
+          image: swr.cn-north-4.myhuaweicloud.com/<ORG>/mpi:v1.0
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+            requests:
+              cpu: "0.5"
+              memory: "512Mi"

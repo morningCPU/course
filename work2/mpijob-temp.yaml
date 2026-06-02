@@ -1,0 +1,48 @@
+apiVersion: kubeflow.org/v2beta1
+kind: MPIJob
+metadata:
+  name: mpi-sort
+  namespace: default
+spec:
+  slotsPerWorker: 1
+  runPolicy:
+    cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+        spec:
+          containers:
+          - name: launcher
+            image: swr.cn-south-1.myhuaweicloud.com/morning/mpi4py:latest
+            command:
+            - mpirun
+            - -n
+            - "1"
+            - python
+            - /opt/mpi/mpi_sort.py
+            volumeMounts:
+            - name: code-volume
+              mountPath: /opt/mpi
+          volumes:
+          - name: code-volume
+            configMap:
+              name: mpi-sort-code
+    Worker:
+      replicas: 1
+      template:
+        spec:
+          containers:
+          - name: worker
+            image: swr.cn-south-1.myhuaweicloud.com/morning/mpi4py:latest
+            resources:
+              requests:
+                cpu: "1"
+                memory: "1Gi"
+            volumeMounts:
+            - name: code-volume
+              mountPath: /opt/mpi
+          volumes:
+          - name: code-volume
+            configMap:
+              name: mpi-sort-code

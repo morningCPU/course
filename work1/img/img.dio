@@ -1,0 +1,121 @@
+<mxfile host="65bd71144e">
+    <diagram id="r9DBKGtICo6aJwWN6S0L" name="第 1 页">
+        <mxGraphModel dx="2378" dy="1405" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry width="800" height="1000" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="whiteSpace=wrap;strokeWidth=2;dashed=1;fillColor=#dae8fc;fontSize=20;strokeColor=#6c8ebf;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="764" width="770" height="208" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="whiteSpace=wrap;strokeWidth=2;dashed=1;fillColor=#dae8fc;fontSize=20;strokeColor=#6c8ebf;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="610" width="770" height="104" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="whiteSpace=wrap;strokeWidth=2;dashed=1;fillColor=#dae8fc;fontSize=20;strokeColor=#6c8ebf;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="456" width="770" height="104" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="whiteSpace=wrap;strokeWidth=2;dashed=1;fillColor=#dae8fc;fontSize=20;strokeColor=#6c8ebf;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="260" width="769" height="122" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="" style="whiteSpace=wrap;strokeWidth=2;dashed=1;fillColor=#dae8fc;fontSize=20;strokeColor=#6c8ebf;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="20" width="770" height="208" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="0号进程生成数据" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="314" y="45" width="180" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Scatter → 所有进程" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="304" y="149" width="201" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="进程0 排序" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="55" y="303" width="137" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="进程1 排序" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="242" y="303" width="137" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="进程2 排序" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="429" y="303" width="137" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="进程3 排序" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="617" y="303" width="137" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="进程0 ↔ 进程1" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="135" y="481" width="166" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="进程2 ↔ 进程3" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="481" width="166" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Allreduce 全局同步" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="306.5" y="635" width="197" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="Gather → 0号进程" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="310" y="789" width="191" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="合并输出结果" style="whiteSpace=wrap;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="328" y="893" width="156" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;fontSize=20;" edge="1" parent="1" source="9" target="10">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="21" value="" style="startArrow=none;endArrow=block;exitX=0;exitY=0.5;entryX=0.5;entryY=0;rounded=0;fontSize=20;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="10" target="11">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="" style="startArrow=none;endArrow=block;exitX=0.26;exitY=1;entryX=0.5;entryY=0;rounded=0;fontSize=20;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="10" target="12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="startArrow=none;endArrow=block;exitX=0.74;exitY=1;entryX=0.5;entryY=0;rounded=0;fontSize=20;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="10" target="13">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="" style="startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.5;entryY=0;rounded=0;fontSize=20;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="10" target="14">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="向右发送" style="startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.21;entryY=0;rounded=0;fontSize=20;" edge="1" parent="1" source="11" target="15">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="向左回传" style="startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.79;entryY=0;rounded=0;fontSize=20;" edge="1" parent="1" source="12" target="15">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="向右发送" style="startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.2;entryY=0;rounded=0;fontSize=20;" edge="1" parent="1" source="13" target="16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="向左回传" style="startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.79;entryY=0;rounded=0;fontSize=20;" edge="1" parent="1" source="14" target="16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="" style="startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0;entryY=0.5;rounded=0;fontSize=20;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="15" target="17">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="" style="startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=1;entryY=0.5;rounded=0;fontSize=20;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="16" target="17">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;fontSize=20;" edge="1" parent="1" source="17" target="18">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="32" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;fontSize=20;" edge="1" parent="1" source="18" target="19">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="33" value="数据分发" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="20" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="本地计算" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="15" y="260" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="奇偶交换通信" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="481" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="结果回收" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="780" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="全局同步" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="620" width="100" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

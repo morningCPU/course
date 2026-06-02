@@ -1,0 +1,51 @@
+apiVersion: kubeflow.org/v2beta1
+kind: MPIJob
+metadata:
+  name: mpi-sort
+  namespace: default
+spec:
+  slotsPerWorker: 2               # 每个 Worker 提供 2 个计算槽位
+  runPolicy:
+    cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+        spec:
+          containers:
+          - name: launcher
+            image: swr.cn-south-1.myhuaweicloud.com/morning/mpi4py:latest
+            command:
+            - mpirun
+            - -n
+            - "4"                 # 启动 4 个 MPI 进程
+            - python
+            - /opt/mpi/mpi_sort_nb.py
+            volumeMounts:
+            - name: code-volume
+              mountPath: /opt/mpi
+          volumes:
+          - name: code-volume
+            configMap:
+              name: mpi-sort-code
+    Worker:
+      replicas: 2                 # 启动 2 个 Worker Pod 副本 (2 * 2 = 4 槽位)
+      template:
+        spec:
+          containers:
+          - name: worker
+            image: swr.cn-south-1.myhuaweicloud.com/morning/mpi4py:latest
+            resources:
+              requests:
+                cpu: "200m"       # 瘦身核心：调低至 0.2 核，确保剩余 0.52 核的节点可以轻松调度
+                memory: "256Mi"   # 调低至 256MB 内存
+              limits:
+                cpu: "1"          # 弹性上限最高跑满 1 核
+                memory: "1Gi"
+            volumeMounts:
+            - name: code-volume
+              mountPath: /opt/mpi
+          volumes:
+          - name: code-volume
+            configMap:
+              name: mpi-sort-code
