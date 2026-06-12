@@ -5,8 +5,11 @@ metadata:
   namespace: default
   labels:
     app: backend
+  annotations:
+    kubernetes.io/elb.class: union
+    kubernetes.io/elb.type: public
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: backend
   ports:

@@ -1,40 +1,45 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# 解决matplotlib中文显示问题
-plt.rcParams['axes.unicode_minus'] = False    # 用来正常显示负号
+# 中文兼容
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
 
-# ===================== 正确数据 =====================
+# 1. 基础参数
 p = np.array([1, 2, 4])
-t_p = np.array([0.01184, 0.00622, 0.00335])
-actual_S = t_p[0] / t_p  # 实测加速比
+T1 = 0.01184
+# 实测耗时
+t_p = np.array([0.01184, 0.00630, 0.00346])
+actual_S = T1 / t_p
 
-# Amdahl 理论值（f≈0.93）
-f = 0.93
-amdahl_S = 1 / ((1 - f) + (f / p))
+# Amdahl参数 f=0.95（串行5%，和示例图一致）
+f = 0.95
+amdahl_S = 1 / ((1 - f) + f / p)
+# 理想线性加速 S=p
+ideal_S = p
 
-# ===================== 绘图 =====================
+# 2. 绘图
 plt.figure(figsize=(8, 5.5), dpi=300)
 
-# 实测加速比折线
-plt.plot(p, actual_S, marker='o', linestyle='-', color='#1f77b4', linewidth=2.5, 
-         label=f'实测加速比\nS(2)={actual_S[1]:.2f}, S(4)={actual_S[2]:.2f}')
+# 理想线性 绿色点线
+plt.plot(p, ideal_S, marker='o', linestyle=':', color='#2ca02c', linewidth=2.5, label='理想线性加速')
+# Amdahl理论 红色虚线
+plt.plot(p, amdahl_S, marker='s', linestyle='--', color='#d62728', linewidth=2, label=f'Amdahl理论 (f={f})')
+# 实测 蓝色实线
+plt.plot(p, actual_S, marker='o', linestyle='-', color='#1f77b4', linewidth=2.5, label='实测加速比')
 
-# Amdahl 理论加速比折线
-plt.plot(p, amdahl_S, marker='s', linestyle='--', color='#d62728', linewidth=2, 
-         label=f'Amdahl 理论值 (f≈{f})')
+# 删掉了所有点数值标注代码
 
-# 图表细节
-plt.xlabel('MPI 进程数 ($p$)', fontsize=11, fontweight='bold')
-plt.ylabel('加速比 ($S$)', fontsize=11, fontweight='bold')
-plt.title('性能对比：实测加速比 vs. Amdahl 理论加速比', fontsize=13, pad=15, fontweight='bold')
-
+# 图表配置
+plt.xlabel('进程数 $p$', fontsize=11, weight='bold')
+plt.ylabel('加速比 $S$', fontsize=11, weight='bold')
+plt.title('实测加速比 vs Amdahl理论 vs 理想线性加速', fontsize=13, pad=15, weight='bold')
 plt.xticks(p)
 plt.xlim(0.5, 4.5)
-plt.ylim(0, 4.0)
+plt.ylim(0, 4.2)
 plt.grid(True, linestyle=':', alpha=0.6)
-plt.legend(fontsize=10, loc='upper left')
+plt.legend(loc='upper left', fontsize=10)
 
 plt.tight_layout()
-plt.savefig('amdahl_speedup_comparison.png', dpi=300)
+plt.savefig('amdahl_three_curve.png', dpi=300)
 plt.show()
