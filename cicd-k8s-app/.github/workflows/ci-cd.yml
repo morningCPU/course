@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 登录 SWR
+      - name: Login to HuaweiCloud SWR
+        uses: docker/login-action@v3
+        with:
+          registry: swr.cn-south-1.myhuaweicloud.com
+          username: ${{ secrets.HW_ACCESS_KEY }}
+          password: ${{ secrets.HW_SECRET_KEY }}
+
+      # 构建并推送（改用普通 docker build，避开 buildx 问题）
+      - name: Build and push
+        run: |
+          docker build -t swr.cn-south-1.myhuaweicloud.com/morning/myapp:${{ github.sha }} .
+          docker push swr.cn-south-1.myhuaweicloud.com/morning/myapp:${{ github.sha }}
+
+      # 部署到 K8s
+      - name: Deploy to Kubernetes
+        uses: Azure/setup-kubectl@v3
+      
+      - name: Update K8s Deployment
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+          kubectl set image deployment/myapp myapp=swr.cn-south-1.myhuaweicloud.com/morning/myapp:${{ github.sha }} -n default
