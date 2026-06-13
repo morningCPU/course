@@ -31,7 +31,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: redis-secret
-              key: REDIS_PASSWORD
+              key: password
         volumeMounts:
         - name: redis-data
           mountPath: /data
@@ -45,4 +45,4 @@ spec:
       volumes:
       - name: redis-data
         persistentVolumeClaim:
-          claimName: redis-pvc
+          claimName: redis-data-pvc

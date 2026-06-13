@@ -1,19 +1,15 @@
+# ── 后端 Service（对外暴露，绑定华为云 ELB）────────────
 apiVersion: v1
 kind: Service
 metadata:
   name: backend-svc
   namespace: default
-  labels:
-    app: backend
   annotations:
     kubernetes.io/elb.class: union
-    kubernetes.io/elb.type: public
 spec:
   type: LoadBalancer
   selector:
     app: backend
   ports:
-  - name: http
-    port: 5000
+  - port: 80
     targetPort: 5000
-    protocol: TCP

@@ -1,54 +1,18 @@
-version: '3.8'
+version: "3.9"
 
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: ../Dockerfile.backend
-    image: backend:v1
-    container_name: flask-backend
+    build: ./backend
     ports:
       - "5000:5000"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - REDIS_PASSWORD=redis123
-      - PYTHONUNBUFFERED=1
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-} # 本地可为空
     depends_on:
       - redis
-    networks:
-      - app-network
-    restart: unless-stopped
 
   redis:
     image: redis:7-alpine
-    container_name: redis-db
     ports:
       - "6379:6379"
-    command: redis-server --requirepass redis123
-    volumes:
-      - redis-data:/data
-    networks:
-      - app-network
-    restart: unless-stopped
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: ../Dockerfile.frontend
-    image: frontend:v1
-    container_name: nginx-frontend
-    ports:
-      - "8080:80"
-    depends_on:
-      - backend
-    networks:
-      - app-network
-    restart: unless-stopped
-
-volumes:
-  redis-data:
-
-networks:
-  app-network:
-    driver: bridge

@@ -1,10 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
+  name: backend
   namespace: default
-  labels:
-    app: backend
 spec:
   replicas: 2
   selector:
@@ -17,43 +15,28 @@ spec:
     spec:
       containers:
       - name: backend
-        image: swr.cn-north-4.myhuaweicloud.com/<ORG>/backend:v1
-        imagePullPolicy: Always
+        image: swr.cn-north-4.myhuaweicloud.com/cloudclass/backend:v1
         ports:
         - containerPort: 5000
-          name: http
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        envFrom:
+        - configMapRef:
+            name: backend-config
         env:
-        - name: REDIS_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: REDIS_HOST
-        - name: REDIS_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: REDIS_PORT
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
               name: redis-secret
-              key: REDIS_PASSWORD
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "256Mi"
-          limits:
-            cpu: "500m"
-            memory: "512Mi"
+              key: password
         livenessProbe:
-          httpGet:
-            path: /api/health
-            port: 5000
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
           httpGet:
             path: /api/ping
             port: 5000
           initialDelaySeconds: 10
-          periodSeconds: 5
+          periodSeconds: 15
